@@ -4,6 +4,21 @@
 #include "TextButtonUI.h"
 #include "../Utls.h"
 
+void UBoardUI::SetNumberToSlot(int number, int row, int column)
+{
+	Slots[row][column]->SetNumberValue(number);
+}
+
+int UBoardUI::GetSlotValue(int row, int column)
+{
+	return Slots[row][column]->GetValue();
+}
+
+void UBoardUI::SelectSlot(int row, int column)
+{
+	Slots[row][column]->SetColor(AlingColor);
+}
+
 void UBoardUI::NativePreConstruct()
 {
 	float fillAmount = 1.0f / BoardSize;
@@ -50,6 +65,9 @@ void UBoardUI::NativePreConstruct()
 	}
 }
 
+//button events
+void UBoardUI::Generate() const { OnGeneratePressed.Execute(); }
+
 void UBoardUI::OnButtonPresed(int row, int column)
 {
 	ClearSelection();
@@ -60,6 +78,8 @@ void UBoardUI::OnButtonPresed(int row, int column)
 	}
 	CurrentSlotSelected = Slots[row][column];
 	CurrentSlotSelected->SetColor(SelectedColor);
+
+	OnSlotPressed.Execute(row, column);
 	//UE_LOG(LogTemp, Warning, TEXT("[UBoardUI] Button (Column:%i,Row:%i) pressed."), row, column);
 }
 

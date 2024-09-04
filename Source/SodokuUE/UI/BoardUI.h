@@ -10,8 +10,16 @@ class SODOKUUE_API UBoardUI : public UUserWidget
 {
 	GENERATED_BODY()
 
+public:
+	void SetNumberToSlot(int number, int row, int column);
+	int GetSlotValue(int row, int column);
+	void SelectSlot(int row, int column);
+	TDelegate<void()> OnGeneratePressed;
+	TDelegate<void(int, int)> OnSlotPressed;
+
 protected:
 	virtual void NativePreConstruct() override;
+	UFUNCTION(BlueprintCallable) void Generate() const;
 
 protected:
 	UPROPERTY(BlueprintReadWrite, meta = (BindWidget)) class UGridPanel* Grid;
@@ -29,6 +37,6 @@ private:
 private:
 	int BoardSize = 9;
 	class USlotUI* Slots[9][9];
-	USlotUI* CurrentSlotSelected;
+	class USlotUI* CurrentSlotSelected;
 	class UTextButton* NumberButtons[9];
 };

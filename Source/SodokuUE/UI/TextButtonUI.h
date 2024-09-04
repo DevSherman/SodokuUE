@@ -11,7 +11,7 @@ class UTextButtonUI : public UUserWidget
 
 public:
 	void SetNumberValue(int Value);
-	void SetState(bool Show);
+	void SetState(bool bShow);
 	TDelegate<void(int)> OnButtonPressed;
 
 protected:

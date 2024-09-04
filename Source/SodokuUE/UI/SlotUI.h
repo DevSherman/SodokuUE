@@ -14,14 +14,16 @@ public:
 	FORCEINLINE void SetCoord(int row, int column) { Row = row; Column = column; }
 	void SetColor(FLinearColor NewColor);
 	void SetNumberValue(int Value);
+	FORCEINLINE int GetValue() const { return Number; }
+
 	TDelegate<void(int, int)> OnButtonPressed;
 
 protected:
 	virtual void NativeConstruct() override;
 
 protected:
-	virtual FReply NativeOnMouseButtonDown(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent) override;
-	virtual FReply NativeOnMouseButtonUp(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent) override;
+	//virtual FReply NativeOnMouseButtonDown(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent) override;
+	//virtual FReply NativeOnMouseButtonUp(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent) override;
 
 protected:
 	UPROPERTY(BlueprintReadWrite, meta = (BindWidget)) class UButton* Button;
@@ -33,5 +35,5 @@ private:
 private:
 	int Row = -1;
 	int Column = -1;
-
+	int Number = -1;
 };

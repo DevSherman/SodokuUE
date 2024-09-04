@@ -8,9 +8,9 @@ void UTextButtonUI::SetNumberValue(int Value)
 	Text->SetText(FText::FromString(FString::FromInt(Value)));
 }
 
-void UTextButtonUI::SetState(bool Show)
+void UTextButtonUI::SetState(bool bShow)
 {
-	Button->SetIsEnabled(Show);
+	Button->SetVisibility(bShow ? ESlateVisibility::Visible : ESlateVisibility::Hidden);
 }
 
 void UTextButtonUI::NativeConstruct()
@@ -20,5 +20,6 @@ void UTextButtonUI::NativeConstruct()
 
 void UTextButtonUI::OnButtonClicked()
 {
+	//UE_LOG(LogTemp, Warning, TEXT("%i"), NumberValue);
 	OnButtonPressed.Execute(NumberValue);
 }

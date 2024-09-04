@@ -30,4 +30,18 @@ namespace Utls
 		}
 		return FinalAssets;
 	}
+
+	template <class T>
+	void ShuffleArray(T& InArray)
+	{
+		const int32 LastIndex = InArray.Num() - 1;
+		for (int32 i = 0; i < LastIndex; ++i)
+		{
+			int32 Index = FMath::RandRange(0, LastIndex);
+			if (i != Index)
+			{
+				InArray.Swap(i, Index);
+			}
+		}
+	}
 }
