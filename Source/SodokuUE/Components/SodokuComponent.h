@@ -36,4 +36,5 @@ private:
 	class UBoardUI* UI;
 	TArray<TArray<SCoord>> Quadrants;
 	int iterationCount = 0;
+	int totalIterations = 0;
 };

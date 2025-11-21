@@ -94,13 +94,21 @@ void USodokuComponent::Generate()
 	//backtracking
 	//first row
 	GenerateValues(0, 3, 3, 9);
-	UE_LOG(LogTemp, Warning, TEXT("First row iteration count: %i times."), iterationCount); iterationCount = 0;
+	UE_LOG(LogTemp, Warning, TEXT("First row iteration count: %i times."), iterationCount); 
+	totalIterations += iterationCount; 
+	iterationCount = 0;
 	//second row
 	GenerateValues(3, 6, 0, 9);
-	UE_LOG(LogTemp, Warning, TEXT("Second row iteration count: %i times."), iterationCount); iterationCount = 0;
+	UE_LOG(LogTemp, Warning, TEXT("Second row iteration count: %i times."), iterationCount);
+	totalIterations += iterationCount;
+	iterationCount = 0;
 	//third row
 	GenerateValues(6, 9, 0, 9);
-	UE_LOG(LogTemp, Warning, TEXT("Second row iteration count: %i times."), iterationCount); iterationCount = 0;
+	UE_LOG(LogTemp, Warning, TEXT("Second row iteration count: %i times."), iterationCount);
+	totalIterations += iterationCount;
+	iterationCount = 0;
+
+	if (totalIterations > 1000) UE_DEBUG_BREAK();
 }
 
 void USodokuComponent::GenerateValues(int fromRow, int toRow, int fromColumn, int toColumn)
@@ -126,11 +134,13 @@ void USodokuComponent::GenerateValues(int fromRow, int toRow, int fromColumn, in
 		}
 	}
 	iterationCount++;
+
 	if (iterationCount > 100)
 	{
 		//UE_DEBUG_BREAK();
 		Generate();
 	}
+	
 
 	if (!valid) GenerateValues(fromRow, toRow, fromColumn, toColumn);
 }
@@ -182,8 +192,6 @@ bool USodokuComponent::IsValidNumberGrid(int number, int row, int column) const
 		if (r != row && UI->GetSlotValue(r, column) == number) return false;
 	for (size_t c = 0; c < 9; c++)
 		if (c != column && UI->GetSlotValue(row, c) == number) return false;
-
-
 
 	return true;			
 }
